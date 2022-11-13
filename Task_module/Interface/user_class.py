@@ -24,9 +24,19 @@ class UserInterface:
             return usr_obj
 
     @staticmethod
-    def change_user(obj: Person) -> Person:
-        pass
+    def update_user(obj: Person, /, *, kwargs) -> Person:
+        if kwargs:
+            for k, v in kwargs.items():
+                if hasattr(obj, k):
+                    obj.k = v
+                else:
+                    print(f"Invalid argument name {k}")
+        return obj
 
     @staticmethod
     def delete_user(obj: Person):
+        pass
+
+    @staticmethod
+    def get_user(self):
         pass

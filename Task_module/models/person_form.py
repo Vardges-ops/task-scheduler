@@ -7,7 +7,7 @@ from Task_module.models.helpers import validate_model_attributes
 @dataclass
 class Person:
 
-    _id: int
+    id_: int
     name: str
     surname: str
     informer: str
