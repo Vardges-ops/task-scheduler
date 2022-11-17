@@ -6,25 +6,24 @@ from Task_module.models.task_form import Task
 class TaskInterface:
     @staticmethod
     def create_task(
-            person_id: int, task_id: int, urgent_lvl: str, status: str, repetitive: bool,
-            create_time: datetime, destination_time: datetime
+            owner_id: int, task_id: int, urgent_lvl: str,
+            status: str, repetitive: bool, destination_time: datetime
     ) -> Optional[Task]:
         """
         This method creates task object from given attributes validates and
         if it is valid returns it, else deletes it
-        :param person_id: task owners id
+        :param owner_id: task owners id
         :param task_id: new task object id
         :param urgent_lvl: new task object urgency level
         :param status: new task object status
         :param repetitive: new task object repetitiveness value
-        :param create_time: new task object creation time
         :param destination_time: new task destination time
         :return: newly created task object
         """
         try:
             task_obj = Task(
-                id_=task_id, owner_id=person_id, importance_lvl=urgent_lvl, status=status,
-                repetitive=repetitive, create_time=create_time, destination_time=destination_time
+                id_=task_id, owner_id=owner_id, importance_lvl=urgent_lvl, status=status,
+                repetitive=repetitive, create_time=datetime.now(), destination_time=destination_time
             )
         except AttributeError as atr_exc:
             print("Couldn't create task. Parsed wrong attribute type")
@@ -68,15 +67,21 @@ class TaskInterface:
         print(f"Changed task's destination time from {old_time} to {new_time}")
 
     @staticmethod
-    def show_task_info():
-        pass
+    def return_task_info(obj_id: int) -> str:
+        """
+        This method gets task by its id and shows information about it
+        :param obj_id: objects id
+        :return: None
+        """
+        obj = TaskInterface.get_task(obj_id)
+        info = f"Task info: \nCreation time {obj.create_time}\nDestination time {obj.destination_time}\n" \
+               f"Urgency level {obj.importance_lvl}\nStatus {obj.status}\nRepetitive {obj.repetitive}"
+        return info
 
     @staticmethod
     def get_task(task_id: int) -> Task:
         pass
 
     @staticmethod
-    def delete_task():
+    def delete_task(task_id: int):
         pass
-
-# class USERTASKINTERFACE

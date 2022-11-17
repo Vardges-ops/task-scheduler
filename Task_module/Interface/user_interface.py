@@ -14,7 +14,7 @@ class UserInterface:
         """under construction"""
         try:
             usr_obj = Person(
-                _id=usr_id, name=usr_name, surname=usr_surname,
+                id_=usr_id, name=usr_name, surname=usr_surname,
                 informer=usr_informer, status=usr_status, ongoing_task_id=task_id
             )
         except AttributeError as atr_exc:
