@@ -1,15 +1,16 @@
 from typing import Optional
 
+from Task_module.constants.user_constants import user_statuses
 from Task_module.models.person_form import Person
 
 
-class UserInterface:
+class UserInterface: # TODO way for user identification from source, ex: telegram_id
 
     @staticmethod
     def create_user(
             usr_id: int, usr_name: str,
             usr_surname: str, usr_informer: str = 'telegram',
-            usr_status: str = 'WAIT', task_id: Optional[int] = None
+            usr_status: str = user_statuses[0], task_id: Optional[int] = None
     ) -> Optional[Person]:
         """under construction"""
         try:
@@ -34,7 +35,7 @@ class UserInterface:
         return obj
 
     @staticmethod
-    def delete_user(obj: Person):
+    def deactivate_user(obj: Person):
         pass
 
     @staticmethod
