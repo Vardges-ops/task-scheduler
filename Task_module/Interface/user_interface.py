@@ -4,7 +4,7 @@ from Task_module.constants.user_constants import user_statuses
 from Task_module.models.person_form import Person
 
 
-class UserInterface: # TODO way for user identification from source, ex: telegram_id
+class UserCRUD:  # TODO way for user identification from source, ex: telegram_id
 
     @staticmethod
     def create_user(
@@ -22,10 +22,11 @@ class UserInterface: # TODO way for user identification from source, ex: telegra
             print("Couldn't create user. Parsed wrong attribute type")
             print(atr_exc)
         else:
-            return usr_obj
+            return usr_obj # TODO fill data into DB
 
     @staticmethod
-    def update_user(obj: Person, /, *, kwargs) -> Person:
+    def update_user(person_id: int, /, *, kwargs) -> Person:
+        obj = UserCRUD.get_user(person_id)
         if kwargs:
             for k, v in kwargs.items():
                 if hasattr(obj, k):
@@ -35,9 +36,20 @@ class UserInterface: # TODO way for user identification from source, ex: telegra
         return obj
 
     @staticmethod
-    def deactivate_user(obj: Person):
+    def deactivate_user(person_id: int):
+        user_obj = UserCRUD.get_user(person_id)
+        user_obj.status = user_statuses[1]
+        # TODO check if necessary do some actions, for example deactivate tasks as well
         pass
 
     @staticmethod
-    def get_user(self):
+    def activate_user(person_id: int):
+        user_obj = UserCRUD.get_user(person_id)
+        user_obj.status = user_statuses[0]
+        # TODO check if necessary do dome actions
+
+
+
+    @staticmethod
+    def get_user(person_id) -> Person:
         pass

@@ -3,7 +3,7 @@ from datetime import datetime
 from Task_module.models.task_form import Task
 
 
-class TaskInterface:
+class TaskCRUD:
     @staticmethod
     def create_task(
             owner_id: int, task_id: int, urgent_lvl: str,
@@ -30,7 +30,7 @@ class TaskInterface:
             print(atr_exc)
             del task_obj
         else:
-            return task_obj
+            return task_obj # TODO fill this data into DB
 
     @staticmethod
     def update_task(obj_id: int, /, *, kwargs) -> Task:
@@ -42,7 +42,7 @@ class TaskInterface:
         :param kwargs: attributes to be updated
         :return: new changed object
         """
-        obj = TaskInterface.get_task(obj_id)
+        obj = TaskCRUD.get_task(obj_id)
         if kwargs:
             for k, v in kwargs.items():
                 if hasattr(obj, k):
@@ -60,7 +60,7 @@ class TaskInterface:
         :param new_time: new destination time which will be set on time object
         :return: None
         """
-        obj = TaskInterface.get_task(obj_id)
+        obj = TaskCRUD.get_task(obj_id)
         old_time = obj.destination_time
         obj.destination_time = new_time
         obj.hist_time_list = old_time
@@ -73,7 +73,7 @@ class TaskInterface:
         :param obj_id: objects id
         :return: None
         """
-        obj = TaskInterface.get_task(obj_id)
+        obj = TaskCRUD.get_task(obj_id)
         info = f"Task info: \nCreation time {obj.create_time}\nDestination time {obj.destination_time}\n" \
                f"Urgency level {obj.importance_lvl}\nStatus {obj.status}\nRepetitive {obj.repetitive}"
         return info
