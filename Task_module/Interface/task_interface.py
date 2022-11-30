@@ -23,7 +23,8 @@ class TaskCRUD:
         try:
             task_obj = Task(
                 id_=task_id, owner_id=owner_id, importance_lvl=urgent_lvl, status=status,
-                repetitive=repetitive, create_time=datetime.now(), destination_time=destination_time
+                repetitive=repetitive, create_time=datetime.now(), destination_time=destination_time,
+                prev_time=destination_time
             )
         except AttributeError as atr_exc:
             print("Couldn't create task. Parsed wrong attribute type")
@@ -55,7 +56,7 @@ class TaskCRUD:
     def set_task_new_time(obj_id: int, new_time: datetime):
         """
         This method finds task object with given id and replaces its destination time with the given new one.
-        Old destination time is appended to object's history time list
+        Old destination time is kept in object as attribute
         :param obj_id: task object id
         :param new_time: new destination time which will be set on time object
         :return: None
@@ -63,7 +64,7 @@ class TaskCRUD:
         obj = TaskCRUD.get_task(obj_id)
         old_time = obj.destination_time
         obj.destination_time = new_time
-        obj.hist_time_list = old_time
+        obj.prev_time = old_time
         print(f"Changed task's destination time from {old_time} to {new_time}")
 
     @staticmethod
@@ -75,8 +76,19 @@ class TaskCRUD:
         """
         obj = TaskCRUD.get_task(obj_id)
         info = f"Task info: \nCreation time {obj.create_time}\nDestination time {obj.destination_time}\n" \
-               f"Urgency level {obj.importance_lvl}\nStatus {obj.status}\nRepetitive {obj.repetitive}"
+               f"Urgency level {obj.importance_lvl}\nStatus {obj.status}\nDescription {obj.description}"
         return info
+
+    @staticmethod # TODO replace this into task interface
+    def set_task_description(obj_id: int, description: str):
+        """
+        This method finds task object with given id and sets its description with the given one
+        :param obj_id: task object id
+        :param description: task object new description
+        :return: None
+        """
+        obj = TaskCRUD.get_task(obj_id)
+        obj.description = description
 
     @staticmethod
     def get_task(task_id: int) -> Task:

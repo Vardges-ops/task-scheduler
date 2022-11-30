@@ -51,6 +51,7 @@ class BaseUser:
                 f"{secret} secret you have input doesn't match with the real one"
             )
 
+
 class RegistrateUser:
     """This class should registrate(manipulate) user, like checking login, password,
      create secret and eventually return user object"""

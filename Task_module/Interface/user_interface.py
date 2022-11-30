@@ -49,7 +49,6 @@ class UserCRUD:  # TODO way for user identification from source, ex: telegram_id
         # TODO check if necessary do dome actions
 
 
-
     @staticmethod
     def get_user(person_id) -> Person:
         pass
